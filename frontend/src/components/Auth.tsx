@@ -40,7 +40,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
             const response = await axios.post(`${BACKEND_URL}/api/v1/auth/${type === "signup" ? "signup" : "signin"}`, validation.data);
             const jwt = response.data;
             localStorage.setItem("token", jwt);
-            navigate("/blogs");
+            navigate("/profile");
         }catch(e: any){
             if (e.response?.data?.errors) {
                 // Handle backend validation errors

@@ -146,3 +146,46 @@ userRouter.put('/profile', async(c) => {
 		});
 	}
 })
+
+// DELETE user profile
+userRouter.delete('/profile', async(c) => {
+	const authHeader = c.req.header("Authorization");
+	
+	if (!authHeader || !authHeader.startsWith("Bearer ")) {
+		c.status(401);
+		return c.json({
+			message: "Unauthorized"
+		});
+	}
+
+	const token = authHeader.split(" ")[1];
+
+	try{
+		const payload = await verify(token, c.env.JWT_SECRET) as any;
+		
+		if(!payload || !payload.id){
+			c.status(403);
+			return c.json({
+				message: "Invalid token"
+			});
+		}
+
+		const prisma = createPrismaClient(c.env.DATABASE_URL);
+
+		await prisma.user.delete({
+			where: {
+				id: payload.id
+			}
+		});
+
+		return c.json({
+			message: "Profile deleted successfully"
+		});
+	} catch(e){
+		console.log(e)
+		c.status(411);
+		return c.json({
+			message: "Failed to delete profile"
+		});
+	}
+})
