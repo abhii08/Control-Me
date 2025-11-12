@@ -13,6 +13,9 @@ interface User {
     updatedAt: string;
 }
 
+/**
+ * Profile Component - Displays and manages user profile information
+ */
 export const Profile = () => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
@@ -29,7 +32,6 @@ export const Profile = () => {
     const fetchProfile = async () => {
         try {
             const token = localStorage.getItem('token');
-
             const response = await axios.get(`${BACKEND_URL}/api/v1/user/profile`, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -42,6 +44,7 @@ export const Profile = () => {
                 phone: response.data.user.phone || ''
             });
         } catch (error: any) {
+            // Redirect to signin if token is invalid
             if (error.response?.status === 401) {
                 localStorage.removeItem('token');
                 navigate('/signin');
@@ -57,7 +60,7 @@ export const Profile = () => {
         setUpdateLoading(true);
 
         try {
-            // Validate form data
+            // Validate form data with Zod schema
             const validation = updateProfileInput.safeParse(formData);
             if (!validation.success) {
                 const fieldErrors: { [key: string]: string } = {};
@@ -100,6 +103,7 @@ export const Profile = () => {
     };
 
     const handleDeleteProfile = async () => {
+        // Confirm before permanent deletion
         if (!window.confirm('Are you sure you want to delete your profile? This action cannot be undone.')) {
             return;
         }

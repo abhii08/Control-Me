@@ -6,25 +6,28 @@ import type { SignupInput } from "../types";
 import { signupInput, signinInput } from "../schemas/validation";
 
 
+/**
+ * Auth Component - Handles user authentication (signup and signin)
+ */
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     const navigate = useNavigate();
     const [postInputs, setPostInputs] = useState<SignupInput>({
         name:"",
         email:"",
-        password: ""    
+        password: ""
     });
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [isLoading, setIsLoading] = useState(false);
 
     async function sendRequest(){
-        // Clear previous errors
         setErrors({});
         
-        // Frontend validation
+        // Use different validation schema for signup vs signin
         const schema = type === "signup" ? signupInput : signinInput;
         const validation = schema.safeParse(postInputs);
         
         if (!validation.success) {
+            // Convert Zod errors to field-specific error messages
             const fieldErrors: Record<string, string> = {};
             validation.error.issues.forEach((error: any) => {
                 if (error.path[0]) {

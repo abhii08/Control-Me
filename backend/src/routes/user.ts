@@ -4,9 +4,8 @@ import { withAccelerate } from '@prisma/extension-accelerate'
 import { verify } from 'hono/jwt'
 import { updateProfileInput } from '../schemas/validation';
 
-// Helper function to create Prisma client  
+// Helper function to create Prisma client with Accelerate for Cloudflare Workers
 function createPrismaClient(databaseUrl: string) {
-	// Ensure we're using the Cloudflare Workers binding, not env vars
 	const prisma = new PrismaClient({
 		datasourceUrl: databaseUrl,
 	}).$extends(withAccelerate());
@@ -20,8 +19,8 @@ export const userRouter = new Hono<{
 	}
 }>();
 
-// GET user profile
 userRouter.get('/profile', async(c) => {
+	// Extract and validate JWT token from Authorization header
 	const authHeader = c.req.header("Authorization");
 	
 	if (!authHeader || !authHeader.startsWith("Bearer ")) {

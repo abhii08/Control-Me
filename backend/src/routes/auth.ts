@@ -4,9 +4,8 @@ import { withAccelerate } from '@prisma/extension-accelerate'
 import { sign, verify } from 'hono/jwt'
 import { signupInput, signinInput } from '../schemas/validation';
 
-// Helper function to create Prisma client  
+// Helper function to create Prisma client with Accelerate for Cloudflare Workers
 function createPrismaClient(databaseUrl: string) {
-	// Ensure we're using the Cloudflare Workers binding, not env vars
 	const prisma = new PrismaClient({
 		datasourceUrl: databaseUrl,
 	}).$extends(withAccelerate());
