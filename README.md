@@ -1,3 +1,5 @@
+# App link: https://control-me-dusky.vercel.app/
+
 # Control-Me
 
 A modern full-stack web application built with React and Hono, featuring user authentication and profile management. The application uses Cloudflare Workers for serverless backend deployment and PostgreSQL with Prisma for data persistence.
