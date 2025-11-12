@@ -300,10 +300,6 @@ model User {
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🐛 Troubleshooting
 
 ### Common Issues
@@ -326,7 +322,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-For support, email [your-email@example.com] or create an issue in the GitHub repository.
+For support, email [abhinavsharma392@gmail.com] or create an issue in the GitHub repository.
 
 ## 🙏 Acknowledgments
 
