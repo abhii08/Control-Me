@@ -327,6 +327,7 @@ model User {
 For support, email [abhinavsharma392@gmail.com] or create an issue in the GitHub repository.
 
 ## 🙏 Acknowledgments
+https://github.com/100xdevs-cohort-2/assignments
 
 - [Hono](https://hono.dev/) - Lightweight web framework
 - [Prisma](https://prisma.io/) - Database ORM
